@@ -40,3 +40,47 @@
 <p>Treat unhealthy patients in each room. And check for the unhealthy patients in random room</p>
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
+
+# Program:
+```
+class MedicinePrescribingAgent:
+    def __init__(self):
+        self.performance = 0
+        self.current_room = 1
+
+    def sense_temperature(self, temp):
+        return temp
+
+    def prescribe_medicine(self, temp):
+        if temp > 98.5:
+            print(f"Patient in Room {self.current_room} has fever ({temp}°F). Prescribing medicine.")
+            self.performance += 10
+        else:
+            print(f"Patient in Room {self.current_room} is healthy ({temp}°F). No treatment needed.")
+
+    def move_to_next_room(self):
+        self.current_room = 2 if self.current_room == 1 else 1
+        self.performance -= 1
+        print(f"Moving to Room {self.current_room}... (Performance -1)")
+
+    def run(self, room_temperatures):
+        for i in range(2):
+            temp = self.sense_temperature(room_temperatures[self.current_room - 1])
+            self.prescribe_medicine(temp)
+            if i == 0:  # Move once between the two rooms
+                self.move_to_next_room()
+        print("\nFinal Performance Score:", self.performance)
+
+
+# Example simulation
+room_temperatures = [99.0, 97.5]  # Room1: Fever, Room2: Normal
+agent = MedicinePrescribingAgent()
+agent.run(room_temperatures)
+
+```
+# OUTPUT:
+<img width="802" height="139" alt="Screenshot 2025-10-22 093433" src="https://github.com/user-attachments/assets/1f562f53-0bd7-4c79-9955-f5b0a241a227" />
+
+# Reesult:
+
+Thus the Developing AI Agent with PEAS Description was implemented using python programming.
